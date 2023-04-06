@@ -176,11 +176,16 @@
   background-color: #fdfeff !important;
 }
 
+.main-title {
+  margin-left: 200px;
+}
+
 @media screen and (min-width: 250px  ) and (max-width: 500px) {
   .btn-voucher {
     width: 100px;
     height: 100px;
   }
+  
 
   #grandTotal {
     margin: auto;

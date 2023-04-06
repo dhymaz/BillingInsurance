@@ -46,7 +46,7 @@ function BillingPayment(props) {
           "search_by" : "0",
           "kwt_date"  : "20110703",
           "kwt_no"    : "",
-          "insco_id"  : null
+          "insco_id"  : insco
       }
     }else{
       bodyReq = bodyParam;
@@ -57,6 +57,7 @@ function BillingPayment(props) {
       .then(res => {
         if (res.data.status_code == "00") {
           setDataList(res.data.response);
+          document.getElementById("form-submit").style.display="block"
         }
         var total = 0;
         res.data.response.map((listNumber, indexNumber) => {
@@ -272,7 +273,7 @@ function BillingPayment(props) {
               </div>
             </div>
 
-            <div className='row mb-4'>
+            <div className='row mb-4 hidden' id='form-submit' >
                 <div className='card px-0 shadow-sm '>
                   <div className='card-header header-form'>
                     <h6><FaFilter /> Payment Data</h6>
