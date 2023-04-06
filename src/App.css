@@ -1,5 +1,18 @@
 .App {
-  text-align: center;
+  text-align: left;
+}
+
+.backgrounLogin {
+  background-color: #ebebeb;
+  display: block;
+  height: 1000px;
+}
+
+.card-login {
+  font-size: 12px;
+  background-color: whitesmoke;
+  height: 330px;
+  padding: 20px 0 20px 0;
 }
 
 .App-logo {
@@ -35,4 +48,159 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.navbar {
+  /* background: rgb(232,153,33);
+  background: linear-gradient(90deg, rgba(232,153,33,1) 0%, rgba(240,210,87,1) 52%, rgba(255,202,115,1) 100%); */
+  background: #0044b3 !important;
+  border-bottom: #61dafb 10px;
+}
+
+.navbar-toggler {
+  color: white !important;
+}
+
+.navbar-toggler-icon {
+  background-color: white !important;
+}
+
+.navbar a{
+  color: whitesmoke;
+}
+
+.navbar h2{
+  color: yellow;
+  margin-right: 10px;
+}
+
+.navbar a:hover{
+  color: orange;
+}
+  
+.navbar a.active{
+  color: yellow;
+}
+
+.container {
+  padding-top: 2em;
+}
+
+.konten {
+  padding-top: 2em;
+} 
+
+.header-form{
+  background: #0044b3 !important;
+}
+
+.header-form > h6,h5{
+  color: white;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.header-form > button{
+  background-color: aliceblue;
+}
+
+.dropdown-menu > li > a {
+  color: #282c34  !important;
+  cursor: pointer;
+}
+
+.profiledd {
+  list-style:outside none none;
+
+}
+
+.img-thumbnail {
+  width: 40px;
+}
+
+.voucher-content >  button {
+  color:white;
+  transition: 1ms;
+}
+
+.voucher-content >  button:hover {
+  color: brown !important;
+  box-shadow: 2px;
+}
+
+.btn-dark-blue {
+  background: #0044b3 !important;
+  color: #ebebeb;
+}
+
+.btn-dark-blue>h5{
+  color: #ebebeb;
+}
+
+.btn-dark-blue>h4{
+  color: #ebebeb;
+}
+
+.btn-dark-blue>h3{
+  color: #ebebeb;
+} 
+
+.btn-dark-blue>h2{
+  color: #ebebeb;
+}
+
+.btn-dark-blue>h1{
+  color: #ebebeb;
+}
+
+.btn-dark-blue>svg{
+  color: #ebebeb;
+}
+
+.btn-dark-blue:hover {
+  background: lightgrey !important;
+  color: #282c34;
+}
+
+
+.titlePrint {
+  font-size: 30px !important;
+}
+
+.btn-voucher {
+  width: 200px;
+  height: 200px;
+}
+
+.odd {
+  background-color: #fdfeff !important;
+}
+
+@media screen and (min-width: 250px  ) and (max-width: 500px) {
+  .btn-voucher {
+    width: 100px;
+    height: 100px;
+  }
+
+  #grandTotal {
+    margin: auto;
+    height: 100%;
+    text-align: center;
+    padding: auto;
+  }
+}
+
+#grandTotal {
+  border-radius: 10px;
+  /* background:#0044b3; */
+  /* margin-right: 25px; */
+  padding: 10px 0px 0px 40px;
+}
+
+
+#grandTotal > h5 {
+  color: #0044b3;
+  /* color:white; */
+  font-family: Arial, Helvetica, sans-serif;
+  text-decoration:double
 }
