@@ -17,8 +17,6 @@ import fh from './../assets/helper/formatHelper'
 import * as Validator from 'validatorjs';
 
 
-
-
 function BillingPayment(props) {
   const [dataList, setDataList] = useState([]);
   const [insco, setInsco] = useState('');
@@ -29,14 +27,12 @@ function BillingPayment(props) {
   var [tglTransaksi, setTglTransaksi] = useState('');
   const [checkboxValue, setcheckboxValue] = useState('');
   const [grandtotal, setGrandTotal] = useState(0);
-  
-
-
-
+  const [companyList, setcompanyList] = useState([]);
 
 
   useEffect(() => {
     GetApiList();
+    GetCompanyList();
   }, [])
 
   const GetApiList = (bodyParam='') => {
@@ -56,6 +52,7 @@ function BillingPayment(props) {
       bodyReq, headerApiInternal)
       .then(res => {
         if (res.data.status_code == "00") {
+          console.log(res.data.response);
           setDataList(res.data.response);
           document.getElementById("form-submit").style.display="block"
         }
@@ -161,6 +158,22 @@ function BillingPayment(props) {
     document.getElementById('inputSisaBayar').scrollIntoView();
   }
 
+  const GetCompanyList = () => {
+    $('#example').DataTable().destroy();
+    const bodyReq = {};
+
+    axios.post(process.env.REACT_APP_IP_INTERNAL_COMPANY_LIST,
+      bodyReq, headerApiInternal)
+      .then(res => {
+        if (res.data.status_code == "00") {
+          var companiesWithNullValue = res.data.response.unshift({"InsID":"","InsName":"-- All Insurance Companies --"}); 
+          setcompanyList(res.data.response);
+          // console.log(res.data.response);
+        }
+      })
+      .catch(e => x.sweetAlert('Opps..',e.message,'OK'));
+  }
+
   $(document).ready(function () {
     setTimeout(function(){
     $('#example').DataTable();
@@ -189,7 +202,13 @@ function BillingPayment(props) {
                           Insurance Name
                         </label>
                         <select className="form-select" onChange={(e)=> { setInsco(e.target.value) }}>
-                          <option>All</option>
+                          {
+                            companyList.map((item,index) => {
+                              return (
+                                <option key={index} value={item.InsID}>{item.InsName}</option>
+                              )
+                            })
+                          }
                         </select>
                       </div>
                       <div className='col-md-12 col-sm-12'>

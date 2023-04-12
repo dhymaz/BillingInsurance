@@ -32,6 +32,7 @@
     "redux-thunk": "^2.4.2",
     "sanitize": "^2.1.2",
     "select2-bootstrap-5-theme": "^1.3.0",
+    "sweetalert2": "^11.7.3",
     "validatorjs": "^3.22.1",
     "web-vitals": "^2.1.4"
   },
