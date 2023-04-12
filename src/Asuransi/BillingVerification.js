@@ -16,31 +16,30 @@ import fh from './../assets/helper/formatHelper';
 
 
 function BillingVerification(props) {
-
   var [dataList, setDataList] = useState([]);
-
-  useEffect(() => {
-    var bodyData = {
-      "search_by": "0",
-      "kwt_date": "20230317",
-      "kwt_no": "",
-      "insco_id": null,
-      "insc_type": "EL"
-    }
-    // });
-    GetApiList(bodyData);
-  }, [])
-
   var [insco, setInsco] = useState('');
   var [searchType, setSearchType] = useState('');
   var [searchText, setSearchText] = useState('');
   var [checkboxValue, setCheckboxValue] = useState('');
   var [checkboxID, setcheckboxID] = useState('');
+  const [companyList, setcompanyList] = useState([]);
+
+
+  useEffect(() => {
+    
+    
+    GetApiList();
+    GetCompanyList();
+  }, [])
+
+
   
 
   
   const checklist_process = (event) => {
+    $(".checkbox").prop('checked',false);
     var id = event.currentTarget.id;
+    document.getElementById(id).checked = true;
     var is_checked = document.getElementById(id).checked;
     if(is_checked){
       setCheckboxValue(event.currentTarget.value);
@@ -66,9 +65,19 @@ function BillingVerification(props) {
     }
   }    
 
-  const GetApiList = (bodyData, isSearch = false) => {
+  const GetApiList = (bodyData = '', isSearch = false) => {
     $('#example').DataTable().destroy();
     setDataList([]);
+    if(bodyData == ''){
+      var bodyData = {
+        "search_by": "0",
+        "kwt_date": "20230317",
+        "kwt_no": "",
+        "insco_id": null,
+        "insc_type": "EL"
+      }
+    }
+
     axios.post(process.env.REACT_APP_IP_INTERNAL_LIST_VERIFY,
       bodyData, headerApiInternal)
       .then(res => {
@@ -131,6 +140,22 @@ function BillingVerification(props) {
     document.querySelector('#searchText').type=typeInput;
     document.querySelector('#searchText').value = '';
   }
+
+  const GetCompanyList = () => {
+    $('#example').DataTable().destroy();
+    const bodyReq = {};
+
+    axios.post(process.env.REACT_APP_IP_INTERNAL_COMPANY_LIST,
+      bodyReq, headerApiInternal)
+      .then(res => {
+        if (res.data.status_code == "00") {
+          var companiesWithNullValue = res.data.response.unshift({"InsID":"","InsName":"-- All Insurance Companies --"}); 
+          setcompanyList(res.data.response);
+          // console.log(res.data.response);
+        }
+      })
+      .catch(e => x.sweetAlert('Opps..',e.message,'OK'));
+  }
    
   $(document).ready(function () {
       setTimeout(function(){
@@ -159,8 +184,13 @@ function BillingVerification(props) {
                         Insurance Name
                       </label>
                       <select className="form-select" onChange={(e) => { setInsco(e.target.value) }}>
-                        <option value='all'>All</option>
-                        <option value='tes'>tes</option>
+                          {
+                            companyList.map((item,index) => {
+                              return (
+                                <option key={index} value={item.InsID}>{item.InsName}</option>
+                              )
+                            })
+                          }
                       </select>
                     </div>
                     <div className='col-md-12 col-sm-12'>
