@@ -20,14 +20,13 @@ function BillingVerification(props) {
   var [insco, setInsco] = useState('');
   var [searchType, setSearchType] = useState('');
   var [searchText, setSearchText] = useState('');
+  var [insType, setinsType] = useState('');
   var [checkboxValue, setCheckboxValue] = useState('');
   var [checkboxID, setcheckboxID] = useState('');
   const [companyList, setcompanyList] = useState([]);
 
 
   useEffect(() => {
-    
-    
     GetApiList();
     GetCompanyList();
   }, [])
@@ -74,7 +73,7 @@ function BillingVerification(props) {
         "kwt_date": "20230317",
         "kwt_no": "",
         "insco_id": null,
-        "insc_type": "EL"
+        "insc_type": null
       }
     }
 
@@ -110,7 +109,7 @@ function BillingVerification(props) {
             "kwt_date": "20230317",
             "kwt_no": "",
             "insco_id": null,
-            "insc_type": "EL"
+            "insc_type": null
           }
       
           GetApiList(bodyData);
@@ -131,8 +130,8 @@ function BillingVerification(props) {
       "search_by": searchType,
       "kwt_date": searchType == 0 ? "20230319" : document.querySelector("#searchText").value.split("-").join(""),
       "kwt_no": searchText,
-      "insco_id": null,
-      "insc_type": "EL"
+      "insco_id": insco,
+      "insc_type": insType
     }
 
     GetApiList(bodyData,true);
@@ -184,18 +183,33 @@ function BillingVerification(props) {
                 <form id='form_search' method='post' onSubmit={submitSearch}>
                   <div className='row mb-4'>
                     <div className='col-md-12 col-sm-12'>
-                      <label className='col-auto'>
-                        Insurance Name
-                      </label>
-                      <select className="form-select" onChange={(e) => { setInsco(e.target.value) }}>
-                          {
-                            companyList.map((item,index) => {
-                              return (
-                                <option key={index} value={item.InsID}>{item.InsName}</option>
-                              )
-                            })
-                          }
-                      </select>
+                      <div className='row'>
+                        <div className='col-md-6 col-sm-12'>
+                          <label className='col-auto'>
+                            Insurance Company
+                          </label>
+                          <select className="form-select" onChange={(e) => { setInsco(e.target.value) }}>
+                              {
+                                companyList.map((item,index) => {
+                                  return (
+                                    <option key={index} value={item.InsID}>{item.InsName}</option>
+                                  )
+                                })
+                              }
+                          </select>
+                        </div>
+                        <div className='col-md-6 col-sm-12'>
+                          <label className='col-auto'>
+                            Insurance Type
+                          </label>
+                          <select className="form-select" onChange={(e) => { setinsType(e.target.value) }}>
+                              <option value=''>--- ALL Insurance Type ---</option>
+                              <option value='EL'>Asuransi Kerusakan</option>
+                              <option value='CR'>Asuransi Kredit</option>
+                              <option value='PA'>Asuransi Jiwa</option>
+                          </select>
+                        </div>
+                      </div>
                     </div>
                     <div className='col-md-12 col-sm-12'>
                       <div className='row'>
