@@ -87,7 +87,6 @@ function BillingVerification(props) {
             setDataList(res.data.response);
             document.querySelector("#submitFilter").classList.remove("disabled");
           } else {
-            x.sweetAlert('Data Not Found', 'Please check data filter', 'ok');
             document.querySelector("#submitFilter").classList.remove("disabled"); 
             setDataList([]);
           }
