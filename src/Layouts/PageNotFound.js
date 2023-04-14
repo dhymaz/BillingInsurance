@@ -2,6 +2,8 @@ import './../App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { FaRegArrowAltCircleLeft } from "react-icons/fa";
 
+
+
 function PageNotFound() {
     return (
         <div className='container'>
@@ -16,12 +18,12 @@ function PageNotFound() {
                         }}/>
                     <div className='row d-flex justify-content-center'>
                         <button 
-                            className='btn btn-warning btn-md mb-3'
+                            className='btn btn-dark-blue btn-md mb-3' 
                             style={{
                                 width: '200px'
-                            }}>
+                            }} >
                             <FaRegArrowAltCircleLeft />  
-                            Go Back
+                            <small>&nbsp;Go Back</small>
                         </button>
                     </div>
                 </div>

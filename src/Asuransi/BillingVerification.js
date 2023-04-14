@@ -73,9 +73,10 @@ function BillingVerification(props) {
         "kwt_date": "20230317",
         "kwt_no": "",
         "insco_id": null,
-        "insc_type": null
+        "insc_type": ""
       }
     }
+    console.log(process.env.REACT_APP_IP_INTERNAL_LIST_VERIFY);
 
     axios.post(process.env.REACT_APP_IP_INTERNAL_LIST_VERIFY,
       bodyData, headerApiInternal)
@@ -100,7 +101,7 @@ function BillingVerification(props) {
 
   const ProcessData = (bodyData) => {
     document.querySelector("#submitFilter").classList.remove("disabled");
-    axios.post(process.env.REACT_APP_IP_INTERNAL_LIST_VERIFY,
+    axios.post(process.env.REACT_APP_IP_INTERNAL_PROCESS_VERIFY,
       bodyData, headerApiInternal)
       .then(res => {
         if (res.data.status_code == "00") {
@@ -109,7 +110,7 @@ function BillingVerification(props) {
             "kwt_date": "20230317",
             "kwt_no": "",
             "insco_id": null,
-            "insc_type": null
+            "insc_type": ""
           }
       
           GetApiList(bodyData);
@@ -126,6 +127,7 @@ function BillingVerification(props) {
     event.preventDefault();
     document.querySelector("#submitFilter").classList.add("disabled");
     searchType = searchType == '' ? 0 : searchType;
+    console.log(searchType);
     var bodyData = {
       "search_by": searchType,
       "kwt_date": searchType == 0 ? "20230319" : document.querySelector("#searchText").value.split("-").join(""),
@@ -203,10 +205,10 @@ function BillingVerification(props) {
                             Insurance Type
                           </label>
                           <select className="form-select" onChange={(e) => { setinsType(e.target.value) }}>
-                              <option value=''>--- ALL Insurance Type ---</option>
-                              <option value='EL'>Asuransi Kerusakan</option>
-                              <option value='CR'>Asuransi Kredit</option>
-                              <option value='PA'>Asuransi Jiwa</option>
+                              <option key={0} value={`index0`} value=''>--- ALL Insurance Type ---</option>
+                              <option key={1} value={`index1`} value={'EL'}>Asuransi Kerusakan</option>
+                              <option key={2} value={`index2`} value={'CR'}>Asuransi Kredit</option>
+                              <option key={3} value={`index3`} value={'PA'}>Asuransi Jiwa</option>
                           </select>
                         </div>
                       </div>

@@ -157,6 +157,10 @@
   color: #ebebeb;
 }
 
+.btn-dark-blue>small{
+  color: #ebebeb;
+}
+
 .btn-dark-blue:hover {
   background: lightgrey !important;
   color: #282c34;
