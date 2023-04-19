@@ -76,7 +76,7 @@ function BillingPayment(props) {
       })
       .catch(e => 
         console.log(e)
-        x.sweetAlert('Opps..',e.message,'OK')
+        // x.sweetAlert('Opps..',e.message,'OK')
       );
   }
 
