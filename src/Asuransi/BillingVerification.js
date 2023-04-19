@@ -204,10 +204,10 @@ function BillingVerification(props) {
                             Insurance Type
                           </label>
                           <select className="form-select" onChange={(e) => { setinsType(e.target.value) }}>
-                              <option key={0} value={`index0`} value=''>--- ALL Insurance Type ---</option>
-                              <option key={1} value={`index1`} value={'EL'}>Asuransi Kerusakan</option>
-                              <option key={2} value={`index2`} value={'CR'}>Asuransi Kredit</option>
-                              <option key={3} value={`index3`} value={'PA'}>Asuransi Jiwa</option>
+                              <option value=''>--- ALL Insurance Type ---</option>
+                              <option value={'EL'}>Asuransi Kerusakan</option>
+                              <option value={'CR'}>Asuransi Kredit</option>
+                              <option value={'PA'}>Asuransi Jiwa</option>
                           </select>
                         </div>
                       </div>

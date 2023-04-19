@@ -72,10 +72,11 @@ function BillingPayment(props) {
       bodyReq, headerApiInternal)
       .then(res => {
         console.log(res);
+        GetApiList();
       })
       .catch(e => 
         console.log(e)
-        // x.sweetAlert('Opps..',e.message,'OK')
+        x.sweetAlert('Opps..',e.message,'OK')
       );
   }
 
