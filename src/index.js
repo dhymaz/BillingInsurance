@@ -19,7 +19,12 @@ import BillPaid from './Asuransi/BillingPaid';
 import BillPaidVoucher from './Asuransi/BillingPaidVoucher';
 import BillingConfirmation from './Asuransi/BillingConfirmation';
 import PrintBillingVoucher from './Asuransi/printBillingVoucher';
-import ReactPDF from '@react-pdf/renderer';
+import Tes from './Asuransi/tes';
+// import { createRoot } from 'react-dom/client';
+import { Provider } from 'react-redux';
+import { store } from './../src/store/configureStore';
+
+
 
 const router = createBrowserRouter([
     {
@@ -67,21 +72,22 @@ const router = createBrowserRouter([
     }, {
         path: "/BillConfirm",
         element : <BillingConfirmation />
+    }, {
+        path: "/tes",
+        element : <Tes />
     },{
         path: "*",
         element: <PageNotFound/>
     }
 ]);
 
-const eventLoader = () => {
-    console.log('please wait . . .')
-} 
-
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <React.StrictMode>
-        <Header/>
-        <RouterProvider router={router}/>
+        <Provider store={store}>
+            <Header/>
+            <RouterProvider router={router}/>
+        </Provider>
     </React.StrictMode>
 );
 

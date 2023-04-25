@@ -8,6 +8,16 @@ import './../assets/helper/alerts';
 import 'react-notifications/lib/notifications.css';
 import {NotificationContainer, NotificationManager} from 'react-notifications';
 import axios from 'axios';
+import { useSelector, useDispatch } from 'react-redux';
+import {
+  decrement,
+  increment,
+  incrementByAmount,
+  incrementAsync,
+  incrementIfOdd,
+  selectCount,
+  alertz
+} from './../store/reducers/todoReducer';
 
 function FormLogin() {
     document.body.style.overflow = "hidden"
@@ -15,6 +25,9 @@ function FormLogin() {
     var [password, inputPassword] = useState('');
     var [data, setData] = useState([]);
     var inputName;
+    const count = useSelector(selectCount);
+    const dispatch = useDispatch();
+    
 
     useEffect(() => {
         if (sessionStorage.getItem("username") == '' || sessionStorage.getItem("username") != undefined) {
@@ -107,6 +120,18 @@ function FormLogin() {
                             </div>
                             <button type="submit" className="btn btn-warning">Submit</button>
                         </form>
+                        <button
+                        aria-label="Decrement value"
+                        onClick={() => dispatch(decrement())}
+                        >
+                        -
+                        </button>
+                        <span >{count}</span>
+                        <button
+                        aria-label="Increment value"
+                        onClick={() => dispatch(increment())}
+                        >+</button>
+                        <button className='btn btn-sm-info3' onClick={()=>dispatch(alertz())}>alert</button>
                     </div>
                 </div>
             </div>

@@ -32,9 +32,6 @@ function BillingVerification(props) {
   }, [])
 
 
-  
-
-  
   const checklist_process = (event) => {
     $(".checkbox").prop('checked',false);
     var id = event.currentTarget.id;

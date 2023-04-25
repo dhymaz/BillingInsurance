@@ -79,7 +79,7 @@
 }
   
 .navbar a.active{
-  color: yellow;
+  color: orange !important;
 }
 
 .container {

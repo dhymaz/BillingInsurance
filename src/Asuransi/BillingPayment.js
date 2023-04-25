@@ -76,7 +76,6 @@ function BillingPayment(props) {
       })
       .catch(e => 
         console.log(e)
-        // x.sweetAlert('Opps..',e.message,'OK')
       );
   }
 
@@ -169,7 +168,6 @@ function BillingPayment(props) {
         if (res.data.status_code == "00") {
           var companiesWithNullValue = res.data.response.unshift({"InsID":"","InsName":"-- All Insurance Companies --"}); 
           setcompanyList(res.data.response);
-          // console.log(res.data.response);
         }
       })
       .catch(e => x.sweetAlert('Opps..',e.message,'OK'));
