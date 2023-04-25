@@ -120,7 +120,7 @@ function FormLogin() {
                             </div>
                             <button type="submit" className="btn btn-warning">Submit</button>
                         </form>
-                        <button
+                        {/* <button
                         aria-label="Decrement value"
                         onClick={() => dispatch(decrement())}
                         >
@@ -131,7 +131,7 @@ function FormLogin() {
                         aria-label="Increment value"
                         onClick={() => dispatch(increment())}
                         >+</button>
-                        <button className='btn btn-sm-info3' onClick={()=>dispatch(alertz())}>alert</button>
+                        <button className='btn btn-sm-info3' onClick={()=>dispatch(alertz())}>alert</button> */}
                     </div>
                 </div>
             </div>

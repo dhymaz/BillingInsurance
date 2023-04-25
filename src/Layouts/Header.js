@@ -132,12 +132,6 @@ const Menus = (props) => {
                       
                   </ul>
                   <form className="d-flex profiledd">
-                    {/* <a  data-bs-toggle="modal" href="#exampleModalToggle" role="button">
-                      <button className="btn  btn-danger dropdown-logout" type="button"  id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
-                        <FaPowerOff style={{marginRight:"10px",marginBottom:"2px"}} />
-                        Logout
-                      </button>
-                    </a> */}
                       <li className="nav-item dropdown">
                         <a className="nav-link dropdown-toggle"  id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                           <img src={process.env.PUBLIC_URL + '/assets/img/avatar7.jpg'} className="img-thumbnail rounded" alt="img"/> Hai, Dimas S
