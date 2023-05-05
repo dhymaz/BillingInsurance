@@ -8,6 +8,7 @@ import reportWebVitals from './reportWebVitals';
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
 import ProductDetail from './Dashboard/ProductDetail';
 import FormLogin from './Layouts/FormLogin';
+import CheckAuth from './Layouts/CheckAuth';
 import Regist from './Layouts/Regist';
 import Logout from './Layouts/Logout';
 import BillingVerification from './Asuransi/BillingVerification';
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
     {
         path: "/",
         element: <FormLogin/>
+    }, {
+        path: "/FormLogin",
+        element: <FormLogin/>
+    }, {
     }, {
         path: "/dashboard",
         element: <Dashboard/>
@@ -85,7 +90,11 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <React.StrictMode>
         <Provider store={store}>
-            <Header/>
+            {
+                sessionStorage.getItem("username") ? (
+                    <Header/>
+                ) : ""
+            }
             <RouterProvider router={router}/>
         </Provider>
     </React.StrictMode>

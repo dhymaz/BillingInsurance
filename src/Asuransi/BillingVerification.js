@@ -88,6 +88,7 @@ function BillingVerification(props) {
             setDataList([]);
           }
         }
+        document.querySelector("#submitFilter").classList.remove("disabled"); 
       })
       .catch(e => { 
         x.sweetAlert('Opps..',e.message,'OK');
@@ -142,7 +143,7 @@ function BillingVerification(props) {
     document.querySelector('#searchText').value = '';
   }
 
-  const GetCompanyList = () => {
+  const GetCompanyList = () => {  
     $('#example').DataTable().destroy();
     const bodyReq = {};
 
@@ -161,7 +162,7 @@ function BillingVerification(props) {
   $(document).ready(function () {
       setTimeout(function(){
       $('#example').DataTable();
-      } ,1000);
+      } ,2000);
   });
   return (
     <div className='App'>
@@ -287,9 +288,12 @@ function BillingVerification(props) {
                 </div>
                 <div className="row">
                   <div className='col-md-12 col-sm-12'>
+                  {
+                      (dataList.length > 0) ?
                     <button className="btn btn-dark-blue  mt-2 mb-3 text-light">
                       <FaTelegramPlane />  Process
-                    </button>
+                    </button> : ""
+                  }
                   </div>
                 </div>
               </form>

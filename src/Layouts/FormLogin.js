@@ -5,8 +5,11 @@ import "datatables.net-dt/js/dataTables.dataTables"
 import 'bootstrap/dist/js/bootstrap.js';
 import * as Validator from 'validatorjs';
 import './../assets/helper/alerts';
+import CheckAuth from './CheckAuth';
 import 'react-notifications/lib/notifications.css';
+import Logout from './Logout';
 import {NotificationContainer, NotificationManager} from 'react-notifications';
+import { FaTelegramPlane } from "react-icons/fa";
 import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
 import {
@@ -30,17 +33,19 @@ function FormLogin() {
     
 
     useEffect(() => {
-        if (sessionStorage.getItem("username") == '' || sessionStorage.getItem("username") != undefined) {
-            window.location.href = '/dashboard';
+        // console.log(sessionStorage.getItem("username"));
+        if (sessionStorage.getItem("username") != null || sessionStorage.getItem("username") ==='' ) {
             console.log('ini dulu');
-            // console.log('atau ini dulu');
+            localStorage.setItem("menuSess", "G.06 Verification");
+            window.location.href = '/verification';
         }
+        // <CheckAuth />
     }, []);
 
     const HandleSubmit = (event) => {
         event.preventDefault();
         const rules = {
-            username: 'email|required',
+            username: 'required',
             password: 'required'
         }
 
@@ -77,7 +82,8 @@ function FormLogin() {
                     sessionStorage.clear();
                     console.log(JSON.stringify(response.data));
                     sessionStorage.setItem("username", response.data.username);
-                    window.location.href = '/';
+                    localStorage.setItem("menuSess", "G.06 Verification");
+                    window.location.href = '/verification';
                     // console.log(sessionStorage.getItem("mySess"));
                 })
                 .catch((error) => {
@@ -90,53 +96,56 @@ function FormLogin() {
     }
 
     return (
+        sessionStorage.getItem("username") != null ? "" :  
         <div className='App backgrounLogin'>
             <NotificationContainer/>
             <div className='container'>
                 <div className='row'>
                     <div
-                        className='col-lg-5 border position-absolute top-50 start-50 translate-middle card-login shadow p-3 mb-5 bg-body rounded'>
-                        <h4>Login</h4>
-                        <form id='form-login' onSubmit={HandleSubmit}>
-                            <div className="mb-3">
-                                <label className="form-label text-grey">Email address</label>
-                                <input
-                                    type="text"
-                                    className="form-control"
-                                    id="exampleInputEmail1"
-                                    aria-describedby="emailHelp"
-                                    onChange={event => inputUsername(event.target.value)}/>
+                        className='col-lg-7 border position-absolute top-50 start-50 translate-middle card-login shadow p-3 mb-5 bg-body rounded'>
+                        <div className='row'>
+                            <h3 className='text-primary'>Insurance</h3>
+                        </div>
+                        <div className='row'>
+                            <div className='col-lg-4'>
+                                <div className='d-flex justify-content-center'>
+                                    <img src={process.env.PUBLIC_URL + '/assets/img/login.jpg'} className="img-login rounded" alt="img"/>
+                                </div>
                             </div>
-                            <div className="mb-3">
-                                <label className="form-label">Password</label>
-                                <input
-                                    type="password"
-                                    className="form-control"
-                                    id="exampleInputPassword1"
-                                    onChange={event => inputPassword(event.target.value)}/>
+                            <div className='col-lg-8 col-sm-12'>
+                                <form id='form-login' onSubmit={HandleSubmit}>
+                                    <div className="mb-3">
+                                        <label className="form-label text-grey">Email address</label>
+                                        <input
+                                            type="text"
+                                            className="form-control"
+                                            id="exampleInputEmail1"
+                                            aria-describedby="emailHelp"
+                                            onChange={event => inputUsername(event.target.value)}/>
+                                    </div>
+                                    <div className="mb-3">
+                                        <label className="form-label">Password</label>
+                                        <input
+                                            type="password"
+                                            className="form-control"
+                                            id="exampleInputPassword1"
+                                            onChange={event => inputPassword(event.target.value)}/>
+                                    </div>
+                                    <div className="mb-3 row">
+                                        <a href={'#'}>Forgot Password</a>
+                                    </div>
+                                    <button type="submit" className="btn btn-primary">
+                                    <FaTelegramPlane /> Submit
+                                    </button>
+                                </form>
                             </div>
-                            <div className="mb-3 row">
-                                <a href={'#'}>Forgot Password</a>
-                            </div>
-                            <button type="submit" className="btn btn-warning">Submit</button>
-                        </form>
-                        {/* <button
-                        aria-label="Decrement value"
-                        onClick={() => dispatch(decrement())}
-                        >
-                        -
-                        </button>
-                        <span >{count}</span>
-                        <button
-                        aria-label="Increment value"
-                        onClick={() => dispatch(increment())}
-                        >+</button>
-                        <button className='btn btn-sm-info3' onClick={()=>dispatch(alertz())}>alert</button> */}
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     );
+    
 }
 
 export default FormLogin;

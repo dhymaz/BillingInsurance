@@ -12,7 +12,7 @@ import { useDispatch, useSelector} from 'react-redux';
 
 
 function Header() {
-    const menu = [
+    const menu = sessionStorage.getItem("username") ? ( [
         {
             "menu_title": "G.06 Verification",
             "link_href": "/verification",
@@ -36,7 +36,7 @@ function Header() {
           "dropdown" : []
         },
         {
-          "menu_title" : "Asuransi",
+          "menu_title" : "Penutupan Asuransi",
           "link_href" : "#",
           "dropdown" : [
             {
@@ -67,7 +67,7 @@ function Header() {
             }
           ] 
         }
-    ]
+    ] ) :  ([])
 
     const profile_image = "https://cdn-icons-png.flaticon.com/512/149/149071.png";
 
@@ -131,18 +131,22 @@ const Menus = (props) => {
                       }
                       
                   </ul>
-                  <form className="d-flex profiledd">
-                      <li className="nav-item dropdown">
-                        <a className="nav-link dropdown-toggle"  id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                          <img src={process.env.PUBLIC_URL + '/assets/img/avatar7.jpg'} className="img-thumbnail rounded" alt="img"/> Hai, Dimas S
-                        </a>
-                        <ul className="dropdown-menu dropdown-menu-end" style={{"marginTop":"15px"}} aria-labelledby="navbarDropdown">
-                          <li><a className="dropdown-item" ><FaUser/>Profile</a></li>
-                          <li><a className="dropdown-item" ><FaCog /> Setting</a></li>
-                          <li><a className="dropdown-item" data-bs-toggle="modal" href="#exampleModalToggle"><FaSignOutAlt />Logout</a></li>
-                        </ul>
-                      </li>
-                  </form>
+                    {
+                      sessionStorage.getItem("username") == null ?  "" : 
+                      <form className="d-flex profiledd">
+                        <li className="nav-item dropdown">
+                          <a className="nav-link dropdown-toggle"  id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src={process.env.PUBLIC_URL + '/assets/img/avatar7.jpg'} className="img-thumbnail rounded" alt="img"/> Hai, Dimas S
+                          </a>
+                          <ul className="dropdown-menu dropdown-menu-end" style={{"marginTop":"15px"}} aria-labelledby="navbarDropdown">
+                            <li><a className="dropdown-item" ><FaUser/>Profile</a></li>
+                            <li><a className="dropdown-item" ><FaCog /> Setting</a></li>
+                            <li><a className="dropdown-item" data-bs-toggle="modal" href="#exampleModalToggle"><FaSignOutAlt />Logout</a></li>
+                          </ul>
+                        </li>
+                      </form>
+                    }
+
               </div>
           </div>
       </nav>
@@ -169,6 +173,23 @@ const Menus = (props) => {
       </div>
     </div>
   )
+}
+
+const dropdown_profile = () => {
+    return (
+      <form className="d-flex profiledd">
+        <li className="nav-item dropdown">
+          <a className="nav-link dropdown-toggle"  id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <img src={process.env.PUBLIC_URL + '/assets/img/avatar7.jpg'} className="img-thumbnail rounded" alt="img"/> Hai, Dimas S
+          </a>
+          <ul className="dropdown-menu dropdown-menu-end" style={{"marginTop":"15px"}} aria-labelledby="navbarDropdown">
+            <li><a className="dropdown-item" ><FaUser/>Profile</a></li>
+            <li><a className="dropdown-item" ><FaCog /> Setting</a></li>
+            <li><a className="dropdown-item" data-bs-toggle="modal" href="#exampleModalToggle"><FaSignOutAlt />Logout</a></li>
+          </ul>
+        </li>
+      </form>
+    )
 }
 
 const Li_menu = (props) => {

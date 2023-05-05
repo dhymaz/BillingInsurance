@@ -13,6 +13,7 @@ import {NotificationContainer, NotificationManager} from 'react-notifications';
 import { FaSearch, FaFilter,FaTelegramPlane } from "react-icons/fa";
 import headerApiInternal from './../assets/helper/apiHelper'
 import x from './../assets/helper/alerts'
+import time from './../assets/helper/time'
 import fh from './../assets/helper/formatHelper'
 import * as Validator from 'validatorjs';
 
@@ -28,10 +29,11 @@ function BillingPayment(props) {
   const [checkboxValue, setcheckboxValue] = useState('');
   const [grandtotal, setGrandTotal] = useState(0);
   const [companyList, setcompanyList] = useState([]);
-
-
+ 
   useEffect(() => {
-    GetApiList();
+    if(dataList.length == 0){
+      GetApiList()
+    }
     GetCompanyList();
   }, [])
 
@@ -71,6 +73,7 @@ function BillingPayment(props) {
     axios.post(process.env.REACT_APP_IP_INTERNAL_BILLING_PAYMENT_PROCESS,
       bodyReq, headerApiInternal)
       .then(res => {
+        x.sweetAlert('Great!',res.data.response,'OK','success');
         console.log(res);
         GetApiList();
       })
@@ -85,9 +88,10 @@ function BillingPayment(props) {
     var bodyReq = {
       "search_by" : searchType,
       "kwt_date"  : searchType == '1' ? searchText.split("-").join("") : "20110703",
-      "kwt_no"    : searchText,
+      "kwt_no"    : searchText.trim(),
       "insco_id"  : insco
     }
+
     GetApiList(bodyReq);
   }
 
@@ -134,10 +138,10 @@ function BillingPayment(props) {
     }else{
         console.log(tglTransaksi);
         var bodyReq = {
-          "bank_id": Bank,
-          "premi_terbayar": sisaBayar,
+          "bank_id": Bank.trim(),
+          "premi_terbayar": sisaBayar.trim(),
           "tgl_bayar": tglTransaksi.split("-").join(""),
-          "billing_no": checkboxValue,
+          "billing_no": checkboxValue.trim(),
           "petugas":"KPOTES"
        }
       //  console.log(bodyReq);
@@ -176,7 +180,7 @@ function BillingPayment(props) {
   $(document).ready(function () {
     setTimeout(function(){
     $('#example').DataTable();
-    } ,1000);
+    } ,2000);
   });
 
   return (
@@ -290,7 +294,8 @@ function BillingPayment(props) {
                 </div>
               </div>
             </div>
-
+            
+            
             <div className='row mb-4 hidden' id='form-submit' >
                 <div className='card px-0 shadow-sm '>
                   <div className='card-header header-form'>
@@ -317,7 +322,7 @@ function BillingPayment(props) {
                       <div className='row'>
                         <div className='col-md-12 col-sm-12'>
                           <label className='col-auto'>Tanggal Transaksi <span className='text-danger'>*</span></label>
-                          <input type="date" style={{"width":"200px"}} className="form-control" id='tglTransaksi' onChange={date => setTglTransaksi(date)} requeired/>
+                          <input type="date" style={{"width":"200px"}} className="form-control" id='tglTransaksi' max={time.now()} onChange={date => setTglTransaksi(date)} requeired/>
                         </div>
                       </div>
                       <div className='row'>
@@ -331,8 +336,8 @@ function BillingPayment(props) {
 
                   </div>
                 </div>
-            </div>
-
+            </div> 
+            
           </div>
         </div> 
     </div>

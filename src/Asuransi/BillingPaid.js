@@ -92,7 +92,13 @@ function BillingPayment(props) {
     axios.post(process.env.REACT_APP_IP_INTERNAL_BILLING_PAID_PROCESS,
       bodyReq, headerApiInternal)
       .then(res => {
-        if(res.data.status_code !== "00") { x.sweetAlert('Opps...',res.data.message,'OK') }; 
+        if(res.data.status_code !== "00") { 
+          x.sweetAlert('Opps...',res.data.message,'OK') 
+        }else{
+          x.sweetAlert('Great!',res.data.response,'OK','success');
+          console.log(res);
+          GetApiList();
+        } 
       })
       .catch(e => 
         x.sweetAlert('Opps..',e.message,'OK')

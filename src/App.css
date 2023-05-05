@@ -11,8 +11,12 @@
 .card-login {
   font-size: 12px;
   background-color: whitesmoke;
-  height: 330px;
+  height: 350px;
   padding: 20px 0 20px 0;
+}
+
+.card-login h3 {
+  padding-left: 50px !important;
 }
 
 .App-logo {
@@ -24,6 +28,10 @@
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
   }
+}
+
+.img-login{
+  width: 280px;
 }
 
 .App-header {
@@ -196,6 +204,21 @@
     height: 100%;
     text-align: center;
     padding: auto;
+  }
+  
+}
+
+@media screen and (min-width: 250px  ) and (max-width: 1500px) {
+  .img-login {
+    display: none;
+  }
+
+  .card-login{
+    margin: 0px 20px 0px 0px;
+  }
+
+  .card-login h3 {
+    padding-left: 10px !important;
   }
 }
 
