@@ -37,6 +37,7 @@ function BillingPayment(props) {
     GetCompanyList();
   }, [])
 
+
   const GetApiList = (bodyParam='') => {
     $('#example').DataTable().destroy();
     if(bodyParam ==''){
@@ -120,7 +121,7 @@ function BillingPayment(props) {
     
     var dataInput = {
         Bank : Bank,
-        sisaBayar: sisaBayar,
+        sisaBayar: sisaBayar.trim().replaceAll(",",""),
         tglTransaksi : new Date(tglTransaksi)
     }
 
@@ -139,7 +140,7 @@ function BillingPayment(props) {
         console.log(tglTransaksi);
         var bodyReq = {
           "bank_id": Bank.trim(),
-          "premi_terbayar": sisaBayar.trim(),
+          "premi_terbayar": sisaBayar.trim().replaceAll(",",""),
           "tgl_bayar": tglTransaksi.split("-").join(""),
           "billing_no": checkboxValue.trim(),
           "petugas":"KPOTES"
@@ -156,9 +157,11 @@ function BillingPayment(props) {
     var thisCheckbox = document.getElementById(event.target.id);
     setcheckboxValue(thisCheckbox.value);
     thisCheckbox.checked = true;
-    var thisSisaByar = document.getElementById('sisaBayar_'+explode[1]).value;
+    var thisSisaByar = document.getElementById('sisaBayar_'+explode[1]).value.replaceAll(".00","");
     setSisaBayar(thisSisaByar);
+    console.log($("#sisaBayar_"+explode[1]))
     document.getElementById('inputSisaBayar').value = thisSisaByar;
+    fh.inputCurrency($("#inputSisaBayar"))
     document.getElementById('inputSisaBayar').scrollIntoView();
   }
 
@@ -257,7 +260,8 @@ function BillingPayment(props) {
                           <th>Insurance Company</th>
                           <th>Total Para</th>
                           <th>Total Premi</th>
-                          <th>Nett Terbayar</th>
+                          <th>Nett<br/>Premi</th>
+                          <th>Nett<br/>Terbayar</th>
                           <th>#</th>
                         </tr>
                       </thead>
@@ -272,7 +276,8 @@ function BillingPayment(props) {
                                 <td>{list.KWTTgl}</td>
                                 <td>{list.InsName}</td>
                                 <td align='right'>{fh.currenyFormat(list.totalpara)}<br/><strong>{list.TotalUnitPara}</strong></td>
-                                <td align='right'>{fh.currenyFormat(list.NetPremi)}<br/><strong>{list.TotalUnitPremi}</strong></td>
+                                <td align='right'>{fh.currenyFormat(list.TotalPremi)}<br/><strong>{list.TotalUnitPremi}</strong></td>
+                                <td align='right'>{fh.currenyFormat(list.NetPremi)}</td>
                                 <td align='right'>{fh.currenyFormat(list.Terbayar)}</td>
                                 <td style={{"width":"10px"}}>
                                   <input name='nilai_premi_withot_separator' id={'sisaBayar_'+no} type='hidden' value={list.SisaTerbayar}/>
@@ -316,7 +321,13 @@ function BillingPayment(props) {
                       <div className='row'>
                         <div className='col-md-12 col-sm-12'>
                           <label className='col-auto'>Premi Terbayar <span className='text-danger'>*</span></label>
-                          <input type="text" id='inputSisaBayar' className="form-control"  onKeyUp={(e)=>setSisaBayar(e.target.value)} onKeyDown={(e)=>setSisaBayar(e.target.value)} requeired/>
+                          
+                          <div class="input-group">
+                            <div class="input-group-prepend">
+                              <div class="input-group-text">Rp.</div>
+                              </div>
+                              <input type="text" id='inputSisaBayar' className="form-control"  onKeyUp={(e)=>{setSisaBayar(e.target.value);fh.inputCurrency($("#inputSisaBayar"));}} onKeyDown={(e)=>{setSisaBayar(e.target.value);;fh.inputCurrency($("#inputSisaBayar"));}} requeired/>
+                          </div>
                         </div>
                       </div>
                       <div className='row'>

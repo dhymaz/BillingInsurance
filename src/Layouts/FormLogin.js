@@ -12,6 +12,7 @@ import {NotificationContainer, NotificationManager} from 'react-notifications';
 import { FaTelegramPlane } from "react-icons/fa";
 import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
+import x from './../assets/helper/alerts'
 import {
   decrement,
   increment,
@@ -79,18 +80,21 @@ function FormLogin() {
             axios
                 .post(process.env.REACT_APP_URL_LOGIN, data, {headers: headers})
                 .then((response) => {
-                    sessionStorage.clear();
-                    console.log(JSON.stringify(response.data));
-                    sessionStorage.setItem("username", response.data.username);
-                    localStorage.setItem("menuSess", "G.06 Verification");
-                    window.location.href = '/verification';
-                    // console.log(sessionStorage.getItem("mySess"));
+                    if("admin" === dataInput.username){
+                        sessionStorage.clear();
+                        console.log(JSON.stringify(response.data));
+                        sessionStorage.setItem("username", response.data.username);
+                        localStorage.setItem("menuSess", "G.06 Verification");
+                        window.location.href = '/verification';
+                        // console.log(sessionStorage.getItem("mySess"));
+                    }else{
+                        x.sweetAlert('Opps..Login gagal',"Silahkan cek username dan password anda!",'OK');
+                    }
                 })
                 .catch((error) => {
                     NotificationManager.error('Username and Password not match');
                     console.log(error)
                 });
-
         }
 
     }
