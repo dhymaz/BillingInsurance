@@ -2,12 +2,12 @@ const headerApiInternal = {
     headers: {
         "content-Type": "application/json",
         "apikey": process.env.REACT_APP_IP_INTERNAL_APIKEY,
-        "builNumber": "1",
-        "version": "1.0.0 1"
+        "builNumber":process.env.REACT_APP_API_BUILD_NUMBER,
+        "version": process.env.REACT_APP_API_VERSION
     },
     auth: {
-        "username": "megain",
-        "password": "megaz!pass"
+        "username": process.env.REACT_APP_USERNAME,
+        "password": process.env.REACT_APP_PASSWORD
     }
 };
 

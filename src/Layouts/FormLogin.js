@@ -131,7 +131,7 @@ function FormLogin() {
                             <div className='col-lg-8 col-sm-12'>
                                 <form id='form-login' onSubmit={HandleSubmit}>
                                     <div className="mb-3">
-                                        <label className="form-label text-grey">Email address</label>
+                                        <label className="form-label text-grey">Uaername</label>
                                         <input
                                             type="text"
                                             className="form-control"
