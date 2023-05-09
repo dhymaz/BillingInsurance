@@ -326,7 +326,7 @@ function BillingPayment(props) {
                             <div class="input-group-prepend">
                               <div class="input-group-text">Rp.</div>
                               </div>
-                              <input type="text" id='inputSisaBayar' className="form-control"  onKeyUp={(e)=>{setSisaBayar(e.target.value);fh.inputCurrency($("#inputSisaBayar"));}} onKeyDown={(e)=>{setSisaBayar(e.target.value);;fh.inputCurrency($("#inputSisaBayar"));}} requeired/>
+                              <input type="text" id='inputSisaBayar' className="form-control"  onKeyUp={(e)=>{setSisaBayar(e.target.value);fh.inputCurrency($("#inputSisaBayar"));}} onKeyDown={(e)=>{setSisaBayar(e.target.value);;fh.inputCurrency($("#inputSisaBayar"));}}  required/>
                           </div>
                         </div>
                       </div>

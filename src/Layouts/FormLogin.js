@@ -28,6 +28,7 @@ function FormLogin() {
     var [username, inputUsername] = useState('');
     var [password, inputPassword] = useState('');
     var [data, setData] = useState([]);
+    var [isProgress, setIsProgress] = useState('hidden');
     var inputName;
     const count = useSelector(selectCount);
     const dispatch = useDispatch();
@@ -40,26 +41,27 @@ function FormLogin() {
             localStorage.setItem("menuSess", "G.06 Verification");
             window.location.href = '/verification';
         }
-        // <CheckAuth />
     }, []);
 
     const HandleSubmit = (event) => {
         event.preventDefault();
+        setIsProgress('');
+
         const rules = {
             username: 'required',
             password: 'required'
         }
-
+        
         var dataInput = {
             username: username,
             password: password
         }
-
+        
         let validation = new Validator(dataInput, rules);
-
+        
         validation.passes(); // true
         validation.fails(); // false
-
+        
         if (validation.errors.get('username') != '') {
             inputName = 'username';
             NotificationManager.error(validation.errors.get(inputName));
@@ -71,37 +73,47 @@ function FormLogin() {
             const headers = {
                 'Content-Type': 'application/json'
             }
-
+            
             const data = {
                 username: 'kminchelle',
                 password: '0lelplR'
             }
-
+            
             axios
-                .post(process.env.REACT_APP_URL_LOGIN, data, {headers: headers})
-                .then((response) => {
-                    if("admin" === dataInput.username){
-                        sessionStorage.clear();
-                        console.log(JSON.stringify(response.data));
-                        sessionStorage.setItem("username", response.data.username);
-                        localStorage.setItem("menuSess", "G.06 Verification");
-                        window.location.href = '/verification';
-                        // console.log(sessionStorage.getItem("mySess"));
-                    }else{
-                        x.sweetAlert('Opps..Login gagal',"Silahkan cek username dan password anda!",'OK');
-                    }
-                })
-                .catch((error) => {
-                    NotificationManager.error('Username and Password not match');
-                    console.log(error)
-                });
+            .post(process.env.REACT_APP_URL_LOGIN, data, {headers: headers})
+            .then((response) => {
+                setIsProgress('hidden');
+                if("admin" === dataInput.username){
+                    sessionStorage.clear();
+                    console.log(JSON.stringify(response.data));
+                    sessionStorage.setItem("username", response.data.username);
+                    localStorage.setItem("menuSess", "G.06 Verification");
+                    window.location.href = '/verification';
+                    // console.log(sessionStorage.getItem("mySess"));
+                }else{
+                    x.sweetAlert('Opps..Login gagal',"Silahkan cek username dan password anda!",'OK');
+                }
+            })
+            .catch((error) => {
+                setIsProgress('hidden');
+                NotificationManager.error('Username and Password not match');
+                console.log(error)
+            });
         }
-
+    }
+    
+    const ProgressBar = () => {
+        return (
+            <div class="progress" >
+                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style={{"width": "100%"}}></div>
+            </div> 
+        )
     }
 
     return (
         sessionStorage.getItem("username") != null ? "" :  
         <div className='App backgrounLogin'>
+            {isProgress!='hidden' ? <ProgressBar />:""}
             <NotificationContainer/>
             <div className='container'>
                 <div className='row'>

@@ -70,7 +70,7 @@ function BillingVerification(props) {
         "kwt_date": "20230317",
         "kwt_no": "",
         "insco_id": null,
-        "insc_type": ""
+        "insc_type": "EL"
       }
     }
     console.log(process.env.REACT_APP_IP_INTERNAL_LIST_VERIFY);
@@ -123,14 +123,14 @@ function BillingVerification(props) {
   const submitSearch = (event) => {
     event.preventDefault();
     document.querySelector("#submitFilter").classList.add("disabled");
-    searchType = searchType == '' ? 0 : searchType;
+    searchType = $("#searchType").val() == '' ? 0 : searchType;
     console.log(searchType);
     var bodyData = {
-      "search_by": searchType,
-      "kwt_date": searchType == 0 ? "20230319" : document.querySelector("#searchText").value.split("-").join(""),
+      "search_by": searchType == ""?0:searchType,
+      "kwt_date": searchType == 0 ? "20230319" : document.querySelector("#searchText").value,
       "kwt_no": searchText,
-      "insco_id": insco,
-      "insc_type": insType
+      "insco_id": insco == '' ? null : insco,
+      "insc_type": insType == '' ? 'EL' : insType
     }
 
     GetApiList(bodyData,true);
@@ -138,6 +138,8 @@ function BillingVerification(props) {
 
   const changeSearchType = (val) => {
     var typeInput = val == 1 ? 'date' : 'text';
+    setSearchType(val);
+    setSearchText('');
     console.log(typeInput);
     document.querySelector('#searchText').type=typeInput;
     document.querySelector('#searchText').value = '';
@@ -203,7 +205,7 @@ function BillingVerification(props) {
                           </label>
                           <select className="form-select" onChange={(e) => { setinsType(e.target.value) }}>
                               <option value=''>--- ALL Insurance Type ---</option>
-                              <option value={'EL'}>Asuransi Kerusakan</option>
+                              <option value={'EL'} selected>Asuransi Kerusakan</option>
                               <option value={'CR'}>Asuransi Kredit</option>
                               <option value={'PA'}>Asuransi Jiwa</option>
                           </select>
@@ -216,14 +218,14 @@ function BillingVerification(props) {
                           <label className='col-auto'>
                             Search By
                           </label>
-                          <select className="form-select" onChange={(e) => { setSearchType(e.target.value);changeSearchType(e.target.value); }}>
+                          <select className="form-select" id='seaechType' onChange={(e) => { setSearchType(e.target.value);changeSearchType(e.target.value); }}>
                             <option value='0'>No. Kwitansi</option>
                             <option value='1'>Tanggal Kwitansi</option>
                           </select>
                         </div>
                         <div className='col-md-6 col-sm-12'>
                           <label className='col-auto'>
-                            Search By
+                            Filter
                           </label>
                           <input type="text" id='searchText' className='form-control' onKeyUp={(e) => { setSearchText(e.target.value) }} onKeyDown={(e) => { setSearchText(e.target.value) }} />
                         </div>
