@@ -20,6 +20,7 @@ import BillPaid from './Asuransi/BillingPaid';
 import BillPaidVoucher from './Asuransi/BillingPaidVoucher';
 import BillingConfirmation from './Asuransi/BillingConfirmation';
 import PrintBillingVoucher from './Asuransi/printBillingVoucher';
+import BillingUpload from './Asuransi/BillingUpload';
 import Tes from './Asuransi/tes';
 // import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
@@ -78,6 +79,9 @@ const router = createBrowserRouter([
         path: "/BillConfirm",
         element : <BillingConfirmation />
     }, {
+        path : "/BillUpload",
+        element : <BillingUpload />
+    },{
         path: "/tes",
         element : <Tes />
     },{
@@ -91,12 +95,12 @@ root.render(
     <React.StrictMode>
         <Provider store={store}>
             {
-                sessionStorage.getItem("username") ? 
+                localStorage.getItem("username") ? 
                     <Header/>
                  : ""
             }
             {
-                sessionStorage.getItem("username") ?(
+                localStorage.getItem("username") ?(
                     <RouterProvider router={router} />
                 ):(
                     <FormLogin />

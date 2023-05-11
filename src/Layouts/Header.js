@@ -12,8 +12,12 @@ import { useDispatch, useSelector } from 'react-redux';
 
 
 function Header() {
-  const menu = sessionStorage.getItem("username") ? ([
+  const menu = localStorage.getItem("username") ? ([
     {
+      "menu_title": "G.05 Billing Upload",
+      "link_href": "/BillUpload",
+      "dropdown": []
+    },{
       "menu_title": "G.06 Verification",
       "link_href": "/verification",
       "dropdown": []
@@ -96,7 +100,6 @@ const Menus = (props) => {
             <span className="navbar-toggler-icon"></span>
           </button>
           <div className="collapse navbar-collapse " id="navbarTogglerDemo01">
-
             <h2>Insurance</h2>
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               {
@@ -126,7 +129,7 @@ const Menus = (props) => {
             </ul>
             
             {
-              sessionStorage.getItem("username") == null ? "" :
+              localStorage.getItem("username") == null ? "" :
                 <form className="d-flex profiledd">
                   <li className="nav-item dropdown">
                     <a className="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">

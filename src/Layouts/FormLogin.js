@@ -13,6 +13,7 @@ import { FaTelegramPlane } from "react-icons/fa";
 import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
 import x from './../assets/helper/alerts'
+import ProgressBar from './../assets/helper/ProgressBar'
 import {
   decrement,
   increment,
@@ -22,6 +23,7 @@ import {
   selectCount,
   alertz
 } from './../store/reducers/todoReducer';
+import rc4 from 'rc4-cipher';
 
 function FormLogin() {
     document.body.style.overflow = "hidden"
@@ -35,8 +37,8 @@ function FormLogin() {
     
 
     useEffect(() => {
-        // console.log(sessionStorage.getItem("username"));
-        if (sessionStorage.getItem("username") != null || sessionStorage.getItem("username") ==='' ) {
+        // console.log(localStorage.getItem("username"));
+        if (localStorage.getItem("username") != null || localStorage.getItem("username") ==='' ) {
             console.log('ini dulu');
             localStorage.setItem("menuSess", "G.06 Verification");
             window.location.href = '/verification';
@@ -84,12 +86,12 @@ function FormLogin() {
             .then((response) => {
                 setIsProgress('hidden');
                 if("admin" === dataInput.username){
-                    sessionStorage.clear();
+                    localStorage.clear();
                     console.log(JSON.stringify(response.data));
-                    sessionStorage.setItem("username", response.data.username);
+                    localStorage.setItem("username", response.data.username);
                     localStorage.setItem("menuSess", "G.06 Verification");
                     window.location.href = '/verification';
-                    // console.log(sessionStorage.getItem("mySess"));
+                    // console.log(localStorage.getItem("mySess"));
                 }else{
                     x.sweetAlert('Opps..Login gagal',"Silahkan cek username dan password anda!",'OK');
                 }
@@ -101,17 +103,9 @@ function FormLogin() {
             });
         }
     }
-    
-    const ProgressBar = () => {
-        return (
-            <div class="progress" >
-                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style={{"width": "100%"}}></div>
-            </div> 
-        )
-    }
 
     return (
-        sessionStorage.getItem("username") != null ? "" :  
+        localStorage.getItem("username") != null ? "" :  
         <div className='App backgrounLogin'>
             {isProgress!='hidden' ? <ProgressBar />:""}
             <NotificationContainer/>

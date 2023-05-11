@@ -48,7 +48,7 @@ function BillingVerification(props) {
 
   const processVerify = (event) => {
     event.preventDefault();
-    const confirm = window.confirm('Are you sure want to submited data?');
+    const confirm = window.confirm('Are you sure want to process data?');
     if(confirm){
       var BodyProcess = {
         "billing_no"  : checkboxValue,
@@ -102,12 +102,13 @@ function BillingVerification(props) {
       bodyData, headerApiInternal)
       .then(res => {
         if (res.data.status_code == "00") {
+          searchType = $("#searchType").val() == '' ? 0 : searchType;
           var bodyData = {
-            "search_by": "0",
-            "kwt_date": "20230317",
-            "kwt_no": "",
-            "insco_id": null,
-            "insc_type": ""
+            "search_by": searchType == ""?0:searchType,
+            "kwt_date": searchType == 0 ? "20230319" : document.querySelector("#searchText").value,
+            "kwt_no": searchText,
+            "insco_id": insco == '' ? null : insco,
+            "insc_type": insType == '' ? 'EL' : insType
           }
       
           GetApiList(bodyData);
