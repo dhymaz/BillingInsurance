@@ -5,16 +5,32 @@ const alerts  =  {
     originalAlert : (text) => {
         alert('worked!');
     },
-    sweetAlert : (title = 'error' , text = 'your sweet alert is error', confirmButton = 'cool',icon = 'error') => {
+    sweetAlert : (title = 'error' , text = 'your sweet alert is error', confirmButton = 'cool',icon = 'error',isTrue = true) => {
         Swal.fire({
             title: title,
             text: text,
             icon: icon,
-            confirmButtonText: confirmButton
+            confirmButtonText: confirmButton,
+            showConfirmButton : isTrue,
+            allowOutsideClick: isTrue,
+            allowEscapeKey: isTrue
         })
     },
-    notification : (text) => {
-        NotificationManager.info(text);
+    notification : (text,classType = 'info') => {
+        // NotificationManager.info(text);
+        switch (classType) {
+            case 'success':
+              NotificationManager.success(text, 'Success', 3000);
+              break;
+            case 'warning':
+              NotificationManager.warning(text, 'Warning', 3000);
+              break;
+            case 'error':
+              NotificationManager.error(text, 'Error', 3000);
+                break;
+            default :   
+                NotificationManager.info(text,'Info',3000,'',true);
+        }
     },
     originalConfirm : (text = 'this is default text from helper, you can customize!', url = 'please-set-url') => {
         var confirm = window.confirm(text);
