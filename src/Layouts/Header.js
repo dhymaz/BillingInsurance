@@ -9,9 +9,18 @@ import {
   increment,
 } from './../store/reducers/todoReducer';
 import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import time from './../assets/helper/time'
+import formatHelper from './../assets/helper/formatHelper'
 
 
 function Header() {
+  useEffect(()=>{
+    // if(localStorage.getItem("key") < time.nowGetWithTIme()){
+    //   localStorage.clear();
+    // }
+  })
+
   const menu = localStorage.getItem("username") ? ([
     {
       "menu_title": "G.05 Billing Upload",
@@ -189,9 +198,6 @@ const dropdown_profile = () => {
 }
 
 const Li_menu = (props) => {
-  const activation = (e) => {
-    alert(console.log(e.target.id));
-  }
   var menuSess = localStorage.getItem('menuSess');
   var isActive = (menuSess == props.title) ? "active" : "";
 

@@ -14,6 +14,8 @@ import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
 import x from './../assets/helper/alerts'
 import ProgressBar from './../assets/helper/ProgressBar'
+import time from './../assets/helper/time'
+import formatHelper from './../assets/helper/formatHelper'
 import {
   decrement,
   increment,
@@ -37,11 +39,10 @@ function FormLogin() {
     
 
     useEffect(() => {
-        // console.log(localStorage.getItem("username"));
         if (localStorage.getItem("username") != null || localStorage.getItem("username") ==='' ) {
             console.log('ini dulu');
-            localStorage.setItem("menuSess", "G.06 Verification");
-            window.location.href = '/verification';
+            localStorage.setItem("menuSess", "G.05 Billing Upload");
+            window.location.href = '/BillUpload';
         }
     }, []);
 
@@ -89,8 +90,9 @@ function FormLogin() {
                     localStorage.clear();
                     console.log(JSON.stringify(response.data));
                     localStorage.setItem("username", response.data.username);
-                    localStorage.setItem("menuSess", "G.06 Verification");
-                    window.location.href = '/verification';
+                    localStorage.setItem("menuSess", "G.05 Billing Upload");
+                    localStorage.setItem("key",time.setExpired().datetime)
+                    window.location.href = '/BillUpload';
                     // console.log(localStorage.getItem("mySess"));
                 }else{
                     x.sweetAlert('Opps..Login gagal',"Silahkan cek username dan password anda!",'OK');
